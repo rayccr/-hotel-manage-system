@@ -14,7 +14,7 @@
                         <router-link :class="route_name == 'roomquery' ? 'nav-link active' : 'nav-link'" :to="{name: 'roomquery'}">客房查询</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link :class="route_name == 'roombook' ? 'nav-link active' : 'nav-link'" :to="{name: 'roombook'}">预定登记</router-link>
+                        <router-link :class="route_name == 'roombook' ? 'nav-link active' : 'nav-link'" :to="{name: 'roombook'}">消费记录</router-link>
                     </li>
                     <li class="nav-item">
                         <router-link :class="route_name == 'roomchange' ? 'nav-link active' : 'nav-link'" :to="{name: 'roomchange'}">换房续房</router-link>

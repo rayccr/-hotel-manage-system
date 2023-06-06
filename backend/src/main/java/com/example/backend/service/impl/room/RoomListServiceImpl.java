@@ -1,10 +1,10 @@
-package com.example.backend.service.impl.user;
+package com.example.backend.service.impl.room;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.backend.mapper.RoomMapper;
 import com.example.backend.pojo.Room;
-import com.example.backend.service.user.RoomListService;
+import com.example.backend.service.room.RoomListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -9,6 +9,7 @@ import UserInfo from "../views/UserInfoView";
 import RoomChangeView from "../views/RoomChangeView";
 import RoomPayView from "../views/RoomPayView";
 import RoomAddView from "../views/RoomAddView";
+import RoomInfoView from "../views/RoomInfoView"
 import store from '@/store';
 
 const routes = [
@@ -40,6 +41,14 @@ const routes = [
     path: '/roombook/',
     name: 'roombook',
     component: RoomBookView,
+    meta: {
+      requestAuth: true,
+    }
+  },
+  {
+    path: '/roominfo/:roomId/',
+    name: 'roominfo',
+    component: RoomInfoView,
     meta: {
       requestAuth: true,
     }

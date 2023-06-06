@@ -8,7 +8,7 @@
 import ContentBase from '../components/ContentBase.vue'
 
 export default {
-  name: 'HomeView',
+  name: 'RoomPayView',
   components: {
     ContentBase,
   },

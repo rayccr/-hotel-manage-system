@@ -48,6 +48,7 @@
     介绍：{{ room.info }}
   </div>
 
+  <button @click="open_room_info(room.id)" type="button" class="btn btn-success">查看详细</button>
 </ContentBase>
 
 
@@ -58,8 +59,8 @@
 import ContentBase from '../components/ContentBase.vue'
 import $ from "jquery"
 import { ref } from "vue"
-import { useStore } from 'vuex'
-
+import { useStore} from 'vuex'
+import router from '@/router/index';
 
 export default {
   name: 'HomeView',
@@ -69,12 +70,11 @@ export default {
 
   setup(){
   
-    let rooms = ref([]);
-
     const store = useStore();
-
+    let rooms = ref([]);
+    
     $.ajax({
-        url: "http://127.0.0.1:5000/api/user/roomlist/",
+        url: "http://127.0.0.1:5000/api/room/roomlist/",
         type: "post",
         data: {
         },
@@ -86,11 +86,37 @@ export default {
         }
       });
 
+      const open_room_info = (roomId) =>{
+          console.log(roomId);
+
+          $.ajax({
+            url: "http://127.0.0.1:5000/api/room/roomqueryone/",
+            type: "post",
+            data: {
+                id: roomId,
+            },
+            headers: {
+                'Authorization': "Bearer " + store.state.user.token,
+            },
+            success(resp) {
+                rooms.value = resp; // resp 里面是room
+            }
+        }); 
+
+          router.push({ // 跳转具体页面
+            name: "roominfo",
+            params: {
+              roomId,
+            }
+          })
+
+        }
+
     return {
       rooms,
+      open_room_info,
     }
   }
-
 
 }
 </script>

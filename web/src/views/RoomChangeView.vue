@@ -9,7 +9,7 @@
 import ContentBase from '../components/ContentBase.vue'
 
 export default {
-    name: 'HomeView',
+    name: 'RoomChangeView',
     components: {
         ContentBase,
     },

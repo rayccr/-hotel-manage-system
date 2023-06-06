@@ -1,20 +1,17 @@
-package com.example.backend.controller.user;
+package com.example.backend.controller.room;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.example.backend.service.user.RoomListService;
+import com.example.backend.service.room.RoomListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
 
 @RestController
 public class RoomListController {
     @Autowired
     private RoomListService roomListService;
 
-    @PostMapping("/api/user/roomlist/")
+    @PostMapping("/api/room/roomlist/")
     public JSONObject roomList(){
         return roomListService.roomList();
     }

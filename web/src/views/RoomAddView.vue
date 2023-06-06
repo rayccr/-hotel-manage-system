@@ -76,7 +76,7 @@
   import { ref } from 'vue';
 
   export default {
-    name: 'HomeView',
+    name: 'RoomAddView',
     components: {
       ContentBase,
     },
@@ -121,7 +121,7 @@
           flag.value = 1; // 添加成功
           res.value = "添加成功";
           $.ajax({
-              url: "http://127.0.0.1:5000/api/user/roomadd/",
+              url: "http://127.0.0.1:5000/api/room/roomadd/",
               type: "post",
               data: {
                   type: roomType.value,

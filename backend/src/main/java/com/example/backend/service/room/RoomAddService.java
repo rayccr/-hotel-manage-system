@@ -1,4 +1,4 @@
-package com.example.backend.service.user;
+package com.example.backend.service.room;
 
 import com.alibaba.fastjson2.JSONObject;
 
