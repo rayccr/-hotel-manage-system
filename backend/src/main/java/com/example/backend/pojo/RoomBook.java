@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class RoomBook {
     private Integer roomId;
     private Integer userId;
+    private Integer count;
     private Integer days;
     private String startDay;
     private Integer cost;

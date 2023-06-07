@@ -45,12 +45,15 @@ public class RoomBookServiceImpl implements RoomBookService {
         Date date = new Date(System.currentTimeMillis());
         String datetmp = formatter.format(date);
 
-        RoomBook roomBook = new RoomBook(roomId, userId, count, datetmp, cost);
+
+        System.out.println("count" + count);
+        System.out.println("days" + days);
+
+        RoomBook roomBook = new RoomBook(roomId, userId, count, days, datetmp, cost);
+        roomBookMapper.insert(roomBook);
 
         room.setCount(room.getCount() - count);
         roomMapper.update(room, queryWrapperRoom);
-
-        roomBookMapper.insert(roomBook);
 
         resp.put("error_message", "success");
 

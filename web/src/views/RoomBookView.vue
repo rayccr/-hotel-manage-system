@@ -1,7 +1,6 @@
 <template>
     <ContentBase>
-        <div>预定</div>
-        <div>输入房间号, 预定数量, 预定天数，生成消费单</div>
+        <div>消费记录</div>
     </ContentBase>
 </template>
 

@@ -1,8 +1,4 @@
 <template>
-  <ContentBase>
-    <div>用户查询</div>
-  </ContentBase>
-
 
 <ContentBase>
   <div class="container text-center">

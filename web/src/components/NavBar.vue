@@ -14,7 +14,7 @@
                         <router-link :class="route_name == 'roomquery' ? 'nav-link active' : 'nav-link'" :to="{name: 'roomquery'}">客房查询</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link :class="route_name == 'roombook' ? 'nav-link active' : 'nav-link'" :to="{name: 'roombook'}">消费记录</router-link>
+                        <router-link :class="route_name == 'userinfo' ? 'nav-link active' : 'nav-link'" :to="{name: 'userinfo'}">消费记录</router-link>
                     </li>
                     <li class="nav-item">
                         <router-link :class="route_name == 'roomchange' ? 'nav-link active' : 'nav-link'" :to="{name: 'roomchange'}">换房续房</router-link>
@@ -33,10 +33,6 @@
                             {{$store.state.user.username }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li>
-                            <router-link class="dropdown-item" :to="{name: 'userinfo', params: {userId: $store.state.user.id}}">{{ $store.state.user.username }}</router-link>
-                        </li>
-                        <li><hr class="dropdown-divider"></li>
                         <li>
                             <router-link class="dropdown-item" :to="{name: 'login'}" @click="logout">退出</router-link>
                         </li>

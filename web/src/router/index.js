@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import RoomBookView from '../views/RoomBookView';
 import LoginView from '../views/LoginView';
 import RegisterView from '../views/RegisterView';
 import RoomQueryView from '../views/RoomQueryView';
@@ -38,9 +37,9 @@ const routes = [
     }
   },
   {
-    path: '/roombook/',
-    name: 'roombook',
-    component: RoomBookView,
+    path: '/userinfo/',
+    name: 'userinfo',
+    component: UserInfo,
     meta: {
       requestAuth: true,
     }
