@@ -17,12 +17,6 @@
                         <router-link :class="route_name == 'userinfo' ? 'nav-link active' : 'nav-link'" :to="{name: 'userinfo'}">消费记录</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link :class="route_name == 'roomchange' ? 'nav-link active' : 'nav-link'" :to="{name: 'roomchange'}">换房续房</router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link :class="route_name == 'roompay' ? 'nav-link active' : 'nav-link'" :to="{name: 'roompay'}">结账退房</router-link>
-                    </li>
-                    <li class="nav-item">
                         <router-link :class="route_name == 'roomadd' ? 'nav-link active' : 'nav-link'" :to="{name: 'roomadd'}">添加房间</router-link>
                     </li>
                 </ul>

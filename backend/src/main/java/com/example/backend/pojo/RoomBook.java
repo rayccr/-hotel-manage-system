@@ -14,4 +14,5 @@ public class RoomBook {
     private Integer days;
     private String startDay;
     private Integer cost;
+    private boolean state;
 }

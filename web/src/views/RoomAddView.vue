@@ -1,6 +1,10 @@
 <template>
 
-    <ContentBase>
+    <ContentBase v-if="$store.state.user.username !== 'ray'">
+      无权限(ray用户是管理员)
+    </ContentBase>
+
+    <ContentBase v-else>
       <form class="row g-3">
         <div class="col-md-4">
           <label for="inputCity" class="form-label">房间类型</label>

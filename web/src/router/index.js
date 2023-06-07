@@ -5,8 +5,6 @@ import RegisterView from '../views/RegisterView';
 import RoomQueryView from '../views/RoomQueryView';
 import NotFoundView from '../views/NotFoundView';
 import UserInfo from "../views/UserInfoView";
-import RoomChangeView from "../views/RoomChangeView";
-import RoomPayView from "../views/RoomPayView";
 import RoomAddView from "../views/RoomAddView";
 import RoomInfoView from "../views/RoomInfoView"
 import store from '@/store';
@@ -48,22 +46,6 @@ const routes = [
     path: '/roominfo/:roomId/',
     name: 'roominfo',
     component: RoomInfoView,
-    meta: {
-      requestAuth: true,
-    }
-  },
-  {
-    path: '/roomchange/',
-    name: 'roomchange',
-    component: RoomChangeView,
-    meta: {
-      requestAuth: true,
-    }
-  },
-  {
-    path: '/roompay/',
-    name: 'roompay',
-    component: RoomPayView,
     meta: {
       requestAuth: true,
     }

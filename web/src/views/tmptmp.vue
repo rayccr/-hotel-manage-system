@@ -1,18 +1,15 @@
 <template>
     <ContentBase>
-        <h3>
-            消费记录 and 换房续房
-        </h3>
         <h1>
-            超级大坑模态框内部接收不了vue的遍历属性!!!!!!!
+            消费记录 and 换房续房
         </h1>
     </ContentBase>
 
-    <!-- <ContentBase v-for="(info, index) in (roomBookInfo, roomBookInfo.length)" :key="index"> -->
-    <ContentBase v-for="(info, index) in roomBookInfo" :key="index">
+
+    <ContentBase v-for="(info, index) in (roomBookInfo, roomBookInfo.length)" :key="info.startDay">
         <div class="row">
             <div class="col-3">
-                房间编号：{{ info.roomId }}
+                房间编号：{{ roomBookInfo[index].roomId }}
             </div>
             <div class="col-3">
                 房间类型: {{ rooms[index].type }}
@@ -26,16 +23,16 @@
         </div>
         <div class="row">
             <div class="col-3">
-                订房时间：{{ info.startDay }}
+                订房时间：{{ roomBookInfo[index].startDay }}
             </div>
             <div class="col-3">
-                订房数量: {{ info.count }}
+                订房数量: {{ roomBookInfo[index].count }}
             </div>
             <div class="col-3">
-                订房天数: {{ info.days }}
+                订房天数: {{ roomBookInfo[index].days }}
             </div>
             <div class="col-3">
-                <span v-if="info.state === false" style="color: red;">
+                <span v-if="roomBookInfo[index].state === false" style="color: red;">
                     支付状态: 未支付
                 </span>
                 <span v-else style="color: green;">
@@ -45,14 +42,12 @@
         </div>
         <div class="row">
             <div class="col-4">
-                订房价格: {{ info.cost }}
+                订房价格: {{ roomBookInfo[index].cost }}
             </div>
         </div>
 
-
-
-        <!-- 超级大坑模态框内部接收不了vue的遍历属性!!!!!!! -->
-        <button @click="updateCurRoomId(info.roomId)" type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop111" 
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop111" 
             style="width: 200px; margin-top: 15px;">
             续房
         </button>
@@ -75,7 +70,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button @click="roomRenewal" type="button" class="btn btn-primary">提交</button>
+                <div>{{ roomBookInfo[index].roomId }}</div>
+                <button @click="roomRenewal(roomBookInfo[index].roomId)" type="button" class="btn btn-primary">提交</button>
                 <div v-if="errorMesage === 'success'" style="color: green;">{{errorMesage}}</div>
                 <div v-else style="color: red;">{{errorMesage}}</div>
             </div>
@@ -83,11 +79,10 @@
         </div>
         </div>
 
-
         <div></div>
 
         <!-- Button trigger modal -->
-        <button @click="updateCurRoomId(info.roomId)" type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop222" 
+        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop222" 
             style="width: 200px; margin-top: 15px;">
             换房
         </button>
@@ -118,7 +113,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button @click="roomChange" type="button" class="btn btn-primary">提交</button>
+                <button @click="roomChange(roomBookInfo[index].roomId)" type="button" class="btn btn-primary">提交</button>
                 <div v-if="errorMesage === 'success'" style="color: green;">{{errorMesage}}</div>
                 <div v-else style="color: red;">{{errorMesage}}</div>
             </div>
@@ -128,10 +123,12 @@
 
         <div></div>
 
-
         <!-- Button trigger modal -->
-        <button @click="updateCurRoomId(info.roomId)" v-if="info.state === false" type="button" class="btn btn-danger" 
-            data-bs-toggle="modal" data-bs-target="#staticBackdrop333" style="width: 200px; margin-top: 15px;">
+
+        <!-- <button v-if="info.state === false" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop333" 
+                style="width: 200px; margin-top: 15px;"> -->
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop333" 
+        style="width: 200px; margin-top: 15px;">
             结账退房
         </button>
 
@@ -145,6 +142,8 @@
             </div>
             <div class="modal-body">
             
+             
+                
                 <div class="form-check">
                     <input v-model="weChatBtn" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                     <label class="form-check-label" for="flexRadioDefault1">
@@ -158,10 +157,12 @@
                     </label>
                 </div>  
 
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button @click="roomPay" type="button" class="btn btn-primary">提交</button>
+                <div>{{ roomBookInfo[index].roomId }}</div>
+                <button @click="roomPay(roomBookInfo[index].roomId)" type="button" class="btn btn-primary">提交</button>
                 <div v-if="errorMesage === 'success'" style="color: green;">{{errorMesage}}</div>
                 <div v-else style="color: red;">{{errorMesage}}</div>
             </div>
@@ -169,7 +170,9 @@
         </div>
         </div>
 
+
     </ContentBase>
+
 </template>
 
 <script>
@@ -185,12 +188,6 @@ export default{
         ContentBase,
     },
 
-    /*
-
-    超级大坑模态框内部接收不了vue的遍历属性！！！！！！！！！！！！！！！！！！
-
-    */
-
     setup(){
         const store = useStore();
         let rooms = ref([]);
@@ -199,7 +196,6 @@ export default{
         let newRoomDay = ref('');
         let newRoomCount = ref('');
         let errorMesage = ref('');
-        let curRoomId = ref('');
         let weChatBtn = ref('');
         let zhiFuBtn = ref('');
 
@@ -218,22 +214,19 @@ export default{
             }
         });
 
-
-        const updateCurRoomId = (roomId) =>{
-            curRoomId.value = roomId;
-        }
-
-        const roomRenewal = () =>{
+        const roomRenewal = (roomId) =>{
             errorMesage.value = '';
+
             if(newRoomDay.value === ''){
                 errorMesage.value = "天数不能为空";
                 return;
             }
+
             $.ajax({
                 url: "http://127.0.0.1:5000/api/room/roomrenewal/",
                 type: "post",
                 data: {
-                    roomId: curRoomId.value,
+                    roomId: roomId,
                     userId: store.state.user.id,
                     days: newRoomDay.value,
                 },
@@ -248,9 +241,10 @@ export default{
                     }
                 }
             });
+            
         }
-
-        const roomChange = () => {
+        
+        const roomChange = (roomId) => {
             errorMesage.value = '';
 
             if(newRoomId.value === ''){
@@ -268,7 +262,7 @@ export default{
                 url: "http://127.0.0.1:5000/api/room/roomchange/",
                 type: "post",
                 data: {
-                    roomId: curRoomId.value,
+                    roomId: roomId,
                     newRoomId: newRoomId.value,
                     userId: store.state.user.id,
                     count: newRoomCount.value,
@@ -285,19 +279,24 @@ export default{
             });
         }
 
-        const roomPay = () => {
+        const roomPay = (roomId) => {
             errorMesage.value = '';
             
+            console.log(roomId);
+            console.log(store.state.user.id);
+
+
             if(zhiFuBtn.value !== 'on' && weChatBtn.value !== 'on'){
                 errorMesage.value = '至少选择一个支付方式';
                 return;
             }
 
+
             $.ajax({
                 url: "http://127.0.0.1:5000/api/room/roompay/",
                 type: "post",
                 data: {
-                    roomId: curRoomId.value,
+                    roomId: roomId,
                     userId: store.state.user.id,
                 },
                 headers: {
@@ -312,8 +311,6 @@ export default{
         }
 
         return{
-            curRoomId,
-            updateCurRoomId,
             rooms,
             roomBookInfo,
             roomChange,
