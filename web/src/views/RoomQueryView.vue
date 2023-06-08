@@ -35,11 +35,11 @@
 
         <ContentBase v-for="room in rooms.rooms" :key="room.id">
           <div class="row">
-            <div class="col-4" v-if="room.state === false" style="color: green;">
+            <div class="col-4" v-if="room.count !== 0" style="color: green;">
               状态: 可租用
             </div>
             <div class="col-4" v-else style="color: red;">
-              状态: 已被租用
+              状态: 无可租用数量
             </div>
             <div class="col-4">
               地点：{{ room.location }}
@@ -67,11 +67,11 @@
           <div>
             介绍：{{ room.info }}
           </div>
+  
+          <button @click="open_room_info(room.id)" type="button" class="btn btn-success">查看详细</button>
         </ContentBase>
 
-
       </div>
-      
     </div>
   </div>
 </ContentBase>
@@ -84,6 +84,7 @@ import ContentBase from '../components/ContentBase'
 import { useStore } from 'vuex';
 import { ref } from "vue"
 import $ from "jquery"
+import router from '@/router/index';
 
 export default {
   name: 'RoomQueryView',
@@ -136,6 +137,32 @@ export default {
       roomHigherPrice.value = "";
     }
 
+    const open_room_info = (roomId) =>{
+          $.ajax({
+            url: "http://127.0.0.1:5000/api/room/roomqueryone/",
+            type: "post",
+            data: {
+                id: roomId,
+            },
+            headers: {
+                'Authorization': "Bearer " + store.state.user.token,
+            },
+            success(resp) {
+                rooms.value = resp; // resp 里面是room
+            }
+        }); 
+
+          router.push({ // 跳转具体页面
+            name: "roominfo",
+            params: {
+              roomId,
+            }
+          })
+
+        }
+
+
+
     return {
       roomType,
       roomLocation,
@@ -143,6 +170,7 @@ export default {
       roomHigherPrice,
       roomQuery,
       rooms,
+      open_room_info,
     }
 
   }

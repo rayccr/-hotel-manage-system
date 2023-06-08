@@ -18,8 +18,7 @@ public class RoomQueryServiceImpl implements RoomQueryService {
     private RoomMapper roomMapper;
 
     @Override
-    public JSONObject roomQueryService(String type, String location, Integer lowerPrice, Integer highPrice) {
-
+    public JSONObject roomQueryService(String type, String location, Float lowerPrice, Float highPrice) {
         QueryWrapper<Room> queryWrapper = new QueryWrapper<>();
         if(!Objects.equals(type, "-1")){
             queryWrapper.eq("type", type);

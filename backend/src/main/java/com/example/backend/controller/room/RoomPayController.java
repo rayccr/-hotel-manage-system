@@ -18,10 +18,6 @@ public class RoomPayController {
     public JSONObject roomPay(@RequestParam Map<String, String> data){
         Integer roomId = Integer.parseInt(data.get("roomId"));
         Integer userId = Integer.parseInt(data.get("userId"));
-
-        System.out.println(roomId);
-        System.out.println(userId);
-
         return roomPayService.roomPay(roomId, userId);
     }
 }

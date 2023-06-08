@@ -13,10 +13,9 @@ import lombok.NoArgsConstructor;
 public class Room {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    private Integer price;
+    private Float price;
     private Integer count;
     private Float discount;
-    private boolean state;
     private String location;
     private String type;
     private String info;

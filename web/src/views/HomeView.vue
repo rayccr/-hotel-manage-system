@@ -1,12 +1,6 @@
 <template>
   <ContentBase>
-      <div>醒目留言：啥也没...</div>  
-      <h3>功能与注意：</h3>
-      <ul>
-        <li>
-          加油吧
-        </li>
-      </ul>
+      <h2>管理员名字:ray;密码:123, 前端判断权限</h2>
 </ContentBase>
 
 <ContentBase>
@@ -15,11 +9,11 @@
 
 <ContentBase v-for="room in rooms.rooms" :key="room.id">
   <div class="row">
-    <div class="col-4" v-if="room.state === false" style="color: green;">
+    <div class="col-4" v-if="room.count !== 0" style="color: green;">
       状态: 可租用
     </div>
     <div class="col-4" v-else style="color: red;">
-      状态: 已被租用
+      状态: 无可租用数量
     </div>
     <div class="col-4">
       地点：{{ room.location }}
@@ -47,8 +41,8 @@
   <div>
     介绍：{{ room.info }}
   </div>
-
   <button @click="open_room_info(room.id)" type="button" class="btn btn-success">查看详细</button>
+
 </ContentBase>
 
 
@@ -87,7 +81,6 @@ export default {
       });
 
       const open_room_info = (roomId) =>{
-          console.log(roomId);
 
           $.ajax({
             url: "http://127.0.0.1:5000/api/room/roomqueryone/",

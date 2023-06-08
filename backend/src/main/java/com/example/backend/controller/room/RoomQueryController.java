@@ -18,8 +18,9 @@ public class RoomQueryController {
     public JSONObject roomQuery(@RequestParam Map<String, String> data){
         String type = data.get("type");
         String location = data.get("location");
-        Integer lowerPrice = Integer.parseInt(data.get("lowerPrice"));
-        Integer highPrice = Integer.parseInt(data.get("highPrice"));
+
+        Float lowerPrice = Float.parseFloat(data.get("lowerPrice"));
+        Float highPrice = Float.parseFloat(data.get("highPrice"));
         return roomQueryService.roomQueryService(type, location, lowerPrice, highPrice);
     }
 

@@ -3,9 +3,6 @@
         <h3>
             消费记录 and 换房续房
         </h3>
-        <h1>
-            超级大坑模态框内部接收不了vue的遍历属性!!!!!!!
-        </h1>
     </ContentBase>
 
     <!-- <ContentBase v-for="(info, index) in (roomBookInfo, roomBookInfo.length)" :key="index"> -->
@@ -52,7 +49,7 @@
 
 
         <!-- 超级大坑模态框内部接收不了vue的遍历属性!!!!!!! -->
-        <button @click="updateCurRoomId(info.roomId)" type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop111" 
+        <button @click="updateCurRoomId(info.roomId)" v-if="info.state === false" type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop111" 
             style="width: 200px; margin-top: 15px;">
             续房
         </button>
@@ -76,8 +73,8 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button @click="roomRenewal" type="button" class="btn btn-primary">提交</button>
-                <div v-if="errorMesage === 'success'" style="color: green;">{{errorMesage}}</div>
-                <div v-else style="color: red;">{{errorMesage}}</div>
+                <div v-if="errorMessage === 'success'" style="color: green;">{{errorMessage}}</div>
+                <div v-else style="color: red;">{{errorMessage}}</div>
             </div>
             </div>
         </div>
@@ -87,7 +84,7 @@
         <div></div>
 
         <!-- Button trigger modal -->
-        <button @click="updateCurRoomId(info.roomId)" type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop222" 
+        <button @click="updateCurRoomId(info.roomId)" v-if="info.state === false" type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop222" 
             style="width: 200px; margin-top: 15px;">
             换房
         </button>
@@ -119,8 +116,8 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button @click="roomChange" type="button" class="btn btn-primary">提交</button>
-                <div v-if="errorMesage === 'success'" style="color: green;">{{errorMesage}}</div>
-                <div v-else style="color: red;">{{errorMesage}}</div>
+                <div v-if="errorMessage === 'success'" style="color: green;">{{errorMessage}}</div>
+                <div v-else style="color: red;">{{errorMessage}}</div>
             </div>
             </div>
         </div>
@@ -162,8 +159,8 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button @click="roomPay" type="button" class="btn btn-primary">提交</button>
-                <div v-if="errorMesage === 'success'" style="color: green;">{{errorMesage}}</div>
-                <div v-else style="color: red;">{{errorMesage}}</div>
+                <div v-if="errorMessage === 'success'" style="color: green;">{{errorMessage}}</div>
+                <div v-else style="color: red;">{{errorMessage}}</div>
             </div>
             </div>
         </div>
@@ -198,7 +195,7 @@ export default{
         let newRoomId = ref('');
         let newRoomDay = ref('');
         let newRoomCount = ref('');
-        let errorMesage = ref('');
+        let errorMessage = ref('');
         let curRoomId = ref('');
         let weChatBtn = ref('');
         let zhiFuBtn = ref('');
@@ -224,9 +221,9 @@ export default{
         }
 
         const roomRenewal = () =>{
-            errorMesage.value = '';
+            errorMessage.value = '';
             if(newRoomDay.value === ''){
-                errorMesage.value = "天数不能为空";
+                errorMessage.value = "天数不能为空";
                 return;
             }
             $.ajax({
@@ -241,9 +238,8 @@ export default{
                     'Authorization': "Bearer " + store.state.user.token,
                 },
                 success(resp) {
-                    console.log(resp.error_message);
-                    errorMesage.value = resp.error_message;
-                    if(errorMesage.value === 'success'){
+                    errorMessage.value = resp.error_message;
+                    if(errorMessage.value === 'success'){
                         Modal.getInstance("#staticBackdrop111").hide();
                     }
                 }
@@ -251,16 +247,16 @@ export default{
         }
 
         const roomChange = () => {
-            errorMesage.value = '';
+            errorMessage.value = '';
 
             if(newRoomId.value === ''){
-                errorMesage.value = "房间ID不能为空";
+                errorMessage.value = "房间ID不能为空";
                 return;
             }if(newRoomCount.value === ''){
-                errorMesage.value = "房间数量不能为空";
+                errorMessage.value = "房间数量不能为空";
                 return;
             }if(newRoomDay.value === ''){
-                errorMesage.value = "天数不能为空";
+                errorMessage.value = "天数不能为空";
                 return;
             }
 
@@ -278,18 +274,17 @@ export default{
                     'Authorization': "Bearer " + store.state.user.token,
                 },
                 success(resp) {
-                    console.log(resp.error_message);
-                    errorMesage.value = resp.error_message;
+                    errorMessage.value = resp.error_message;
                     Modal.getInstance("#staticBackdrop222").hide();
                 }
             });
         }
 
         const roomPay = () => {
-            errorMesage.value = '';
+            errorMessage.value = '';
             
             if(zhiFuBtn.value !== 'on' && weChatBtn.value !== 'on'){
-                errorMesage.value = '至少选择一个支付方式';
+                errorMessage.value = '至少选择一个支付方式';
                 return;
             }
 
@@ -304,8 +299,7 @@ export default{
                     'Authorization': "Bearer " + store.state.user.token,
                 },
                 success(resp) {
-                    console.log(resp.error_message);
-                    errorMesage.value = resp.error_message;
+                    errorMessage.value = resp.error_message;
                     Modal.getInstance("#staticBackdrop333").hide();
                 }
             });
@@ -320,7 +314,7 @@ export default{
             roomRenewal,
             newRoomId,
             newRoomDay,
-            errorMesage,
+            errorMessage,
             newRoomCount,
             roomPay,
             weChatBtn,

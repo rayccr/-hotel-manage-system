@@ -13,6 +13,6 @@ public class RoomBook {
     private Integer count;
     private Integer days;
     private String startDay;
-    private Integer cost;
-    private boolean state;
+    private Float cost;
+    private Boolean state;
 }

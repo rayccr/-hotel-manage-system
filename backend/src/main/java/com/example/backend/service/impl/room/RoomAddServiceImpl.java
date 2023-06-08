@@ -14,10 +14,10 @@ public class RoomAddServiceImpl implements RoomAddService {
     private RoomMapper roomMapper;
 
     @Override
-    public JSONObject roomAdd(String type, Integer price, Integer count, Float discount, String location, String info) {
+    public JSONObject roomAdd(String type, float price, Integer count, Float discount, String location, String info) {
 
         JSONObject resp = new JSONObject();
-        Room room = new Room(null, price, count, discount, false, location, type, info);
+        Room room = new Room(null, price, count, discount, location, type, info);
         roomMapper.insert(room);
 
         resp.put("error_message", "success");

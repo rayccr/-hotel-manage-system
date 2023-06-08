@@ -30,7 +30,7 @@ public class RoomRenewalServiceImpl implements RoomRenewalService {
         queryWrapper.eq("room_id", roomId).eq("user_id", userId);
         RoomBook roomBook = roomBookMapper.selectOne(queryWrapper);
 
-        Integer addCost = room.getPrice() * days;
+        Float addCost = room.getPrice() * days * room.getDiscount();
 
         roomBook.setDays(roomBook.getDays() + days);
         roomBook.setCost(roomBook.getCost() + addCost);

@@ -42,7 +42,7 @@ public class RoomBookServiceImpl implements RoomBookService {
             return resp;
         }
 
-        Integer cost = count * days * room.getPrice();
+        float addCost = count * days * room.getPrice() * room.getDiscount();
 
         QueryWrapper<RoomBook> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("room_id", roomId).eq("user_id", userId);
@@ -52,7 +52,7 @@ public class RoomBookServiceImpl implements RoomBookService {
         roomMapper.update(room, queryWrapperRoom);
 
         if(roomBook != null){
-            roomBook.setCost(roomBook.getCost() + cost);
+            roomBook.setCost(roomBook.getCost() + addCost);
             roomBook.setDays(roomBook.getDays() + days);
             roomBook.setCount(roomBook.getCount() + count);
             roomBookMapper.update(roomBook, queryWrapper);
@@ -66,9 +66,8 @@ public class RoomBookServiceImpl implements RoomBookService {
         String datetmp = formatter.format(date);
 
 
-        RoomBook roomBook1 = new RoomBook(roomId, userId, count, days, datetmp, cost, false);
+        RoomBook roomBook1 = new RoomBook(roomId, userId, count, days, datetmp, addCost, false);
         roomBookMapper.insert(roomBook1);
-
 
         resp.put("error_message", "success");
 

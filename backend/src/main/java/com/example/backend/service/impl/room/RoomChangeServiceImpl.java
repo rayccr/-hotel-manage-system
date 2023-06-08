@@ -39,14 +39,14 @@ public class RoomChangeServiceImpl implements RoomChangeService {
         newRoom.setCount(newRoom.getCount() - count);
         roomMapper.update(newRoom, queryWrapperRoom);
 
-        Integer addcost = newRoom.getPrice() * days * count;
+        Float addCost = newRoom.getPrice() * days * count * newRoom.getDiscount();
 
         QueryWrapper<RoomBook> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("room_id", newRoomId).eq("user_id", userId); // 如果已经有，要累加
         RoomBook roomBook = roomBookMapper.selectOne(queryWrapper);
 
         if(roomBook != null){
-            roomBook.setCost(roomBook.getCost() + addcost);
+            roomBook.setCost(roomBook.getCost() + addCost);
             roomBook.setDays(roomBook.getDays() + days);
             roomBook.setCount(roomBook.getCount() + count);
             roomBookMapper.update(roomBook, queryWrapper);
@@ -59,7 +59,7 @@ public class RoomChangeServiceImpl implements RoomChangeService {
         Date date = new Date(System.currentTimeMillis());
         String datetmp = formatter.format(date);
 
-        RoomBook roomBook1 = new RoomBook(newRoomId, userId, count, days, datetmp, addcost, false);
+        RoomBook roomBook1 = new RoomBook(newRoomId, userId, count, days, datetmp, addCost, false);
         roomBookMapper.insert(roomBook1);
 
         resp.put("error_message", "success");

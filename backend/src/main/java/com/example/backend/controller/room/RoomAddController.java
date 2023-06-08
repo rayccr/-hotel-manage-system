@@ -18,7 +18,7 @@ public class RoomAddController {
     @PostMapping("/api/room/roomadd/")
     public JSONObject roomAdd(@RequestParam MultiValueMap<String, String> data){
         String type = data.getFirst("type");
-        Integer price = Integer.parseInt(Objects.requireNonNull(data.getFirst("price")));
+        Float price = Float.parseFloat(Objects.requireNonNull(data.getFirst("price")));
         Integer count = Integer.parseInt(Objects.requireNonNull(data.getFirst("count")));
         Float discount = Float.parseFloat(Objects.requireNonNull(data.getFirst("discount")));
         String location = data.getFirst("location");
